@@ -1,10 +1,10 @@
 import { db } from '@/lib/db';
 import { Categories } from './_components/Categories';
 import SearchInput from '@/components/SearchInput';
-import { getCourses } from '@/actions/get-courses';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import CoursesList from '../../../../components/CoursesList';
+import CoursesList from '@/components/CoursesList';
+import { getCourses } from '@/actions/get-courses';
 
 interface SearchPageProps {
     searchParams: {

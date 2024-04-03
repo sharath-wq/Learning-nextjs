@@ -3,10 +3,11 @@ import { Banner } from '@/components/Banner';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import VideoPlayer from './_components/VideoPlayer';
-import CourseEnrollButton from './_components/CourseEnrollButton';
+
 import { Separator } from '@/components/ui/separator';
 import { Preview } from '@/components/Preview';
 import { File } from 'lucide-react';
+import { CourseEnrollButton } from './_components/CourseEnrollButton';
 
 const ChapterIdPage = async ({
     params,
