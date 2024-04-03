@@ -1,9 +1,9 @@
-import { getProgress } from '@/actions/GetProgress';
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import CourseSidebar from './_components/CourseSidebar';
 import CourseNavbar from './_components/CourseNavbar';
+import { getProgres } from '@/actions/get-progress';
 
 const CourseLayout = async ({ children, params }: { children: React.ReactNode; params: { courseId: string } }) => {
     const { userId } = auth();
@@ -39,7 +39,7 @@ const CourseLayout = async ({ children, params }: { children: React.ReactNode; p
         return redirect('/');
     }
 
-    const progressCount = await getProgress(userId, course.id);
+    const progressCount = await getProgres(userId, course.id);
 
     return (
         <div className='h-full'>
