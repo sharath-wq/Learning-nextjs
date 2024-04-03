@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { Preview } from '@/components/Preview';
 import { File } from 'lucide-react';
 import { CourseEnrollButton } from './_components/CourseEnrollButton';
+import CourseProgressButton from './_components/CourseProgressButton';
 
 const ChapterIdPage = async ({
     params,
@@ -38,9 +39,8 @@ const ChapterIdPage = async ({
 
     return (
         <div>
-            {userProgress?.isCompleted && <Banner label='You  already completed this chapter' variant={'success'} />}
-            {isLocked && <Banner label='You need to purchase this course to watch this chapter' variant={'warning'} />}
-
+            {userProgress?.isCompleted && <Banner variant='success' label='You already completed this chapter.' />}
+            {isLocked && <Banner variant='warning' label='You need to purchase this course to watch this chapter.' />}
             <div className='flex flex-col max-w-4xl mx-auto pb-20'>
                 <div className='p-4'>
                     <VideoPlayer
@@ -53,11 +53,16 @@ const ChapterIdPage = async ({
                         completeOnEnd={completeOnEnd}
                     />
                 </div>
-                <div className=''>
+                <div>
                     <div className='p-4 flex flex-col md:flex-row items-center justify-between'>
                         <h2 className='text-2xl font-semibold mb-2'>{chapter.title}</h2>
                         {purchase ? (
-                            <div>{/* TODO: add course progress button */}</div>
+                            <CourseProgressButton
+                                chapterId={params.chapterId}
+                                courseId={params.courseId}
+                                nextChapterId={nextChapter?.id}
+                                isCompleted={!!userProgress?.isCompleted}
+                            />
                         ) : (
                             <CourseEnrollButton courseId={params.courseId} price={course.price!} />
                         )}
@@ -72,10 +77,10 @@ const ChapterIdPage = async ({
                             <div className='p-4'>
                                 {attachments.map((attachment) => (
                                     <a
-                                        className='flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md hover:underline'
                                         href={attachment.url}
-                                        key={attachment.id}
                                         target='_blank'
+                                        key={attachment.id}
+                                        className='flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md hover:underline'
                                     >
                                         <File />
                                         <p className='line-clamp-1'>{attachment.name}</p>
